@@ -11,7 +11,7 @@ Next.js registration PWA with PostgreSQL storage and build-generated QR assets.
 
 The development server allows its machine's current IPv4 addresses so phones on the same network can load development assets. Restart it if the address changes. Only use the development server on a trusted network; it is not intended for public deployment.
 
-The temporary category list is in `src/lib/registration.ts`. Replace `Visitor` with the final allowed values before collecting registrations. Both the form and API use this list.
+The registration form is at the root URL (for example, `https://your-app.vercel.app/`). Add `?source=qr` to the QR URL to record scans. Both the form and API use the interest list in `src/lib/registration.ts`; selecting Others requires a description.
 
 ### PostgreSQL configuration
 
@@ -31,7 +31,7 @@ An existing `DATABASE_URL`, if set, takes precedence over the separate `DB_*` se
 
 ## Build and deploy
 
-Run `npm run build`. The prebuild step generates the Prisma client, `public/qr/app-qr.svg`, `public/qr/app-qr.png` (1024 × 1024), and PWA icons. A missing or invalid `NEXT_PUBLIC_APP_URL` fails the build to avoid producing a misleading QR code. Visit `/qr` for downloads and the A4 print view.
+Run `npm run build`. The prebuild step generates the Prisma client, `public/qr/app-qr.svg`, `public/qr/app-qr.png` (1024 × 1024), and PWA icons. A missing or invalid `NEXT_PUBLIC_APP_URL` fails the build to avoid producing a misleading QR code. Visit `/qr` for downloads and the A4 print view. Apply migrations before deploying the updated form; existing registration categories are retained.
 
 On Vercel, configure the same `DB_*` values and `NEXT_PUBLIC_APP_URL` for each environment and run `npm run db:migrate` against that environment's database before accepting registrations. The QR URL is fixed at build time, so rebuild after changing it. Use a production HTTPS URL for scanning and installation.
 

@@ -1,8 +1,11 @@
 import { parsePhoneNumberFromString } from "libphonenumber-js/max";
 import { z } from "zod";
 
-// Replace this temporary list when the event's categories are confirmed.
-export const CATEGORIES = ["Visitor"] as const;
+export const INTERESTS = [
+  "QuantumDataLytica", "Switchboard", "Conversational AI", "MailPilot",
+  "CampaignX", "MentorX", "IntelliHire", "CourseSmith", "StudyMate",
+  "JobHunter", "ReviewBoost", "Solara", "Custom Solution", "Others",
+] as const;
 
 export const registrationSchema = z.object({
   name: z.string().trim().min(2, "Please enter at least 2 characters.").max(100, "Name must be 100 characters or fewer.")
@@ -12,6 +15,14 @@ export const registrationSchema = z.object({
     const parsed = parsePhoneNumberFromString(value);
     return !!parsed && parsed.isValid() && !parsed.ext;
   }, "Please enter a valid phone number for your country."),
-  category: z.enum(CATEGORIES, { error: "Please select a category." }),
+  company: z.string().trim().min(1, "Please enter your company.").max(100, "Company must be 100 characters or fewer."),
+  interests: z.array(z.enum(INTERESTS, { error: "Please select a valid interest." }))
+    .min(1, "Please select at least one interest.")
+    .refine((values) => new Set(values).size === values.length, "Please select each interest only once."),
+  description: z.string().trim().max(1000, "Description must be 1000 characters or fewer.").optional(),
   source: z.string().trim().min(1).max(30).regex(/^[a-zA-Z0-9_-]+$/).default("direct"),
+}).superRefine((value, context) => {
+  if (value.interests.includes("Others") && !value.description) {
+    context.addIssue({ code: "custom", path: ["description"], message: "Please describe your interest." });
+  }
 });

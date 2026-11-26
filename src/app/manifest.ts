@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Tech Expo",
-    short_name: "Tech Expo",
-    description: "Register for Tech Expo.",
+    name: "Let's Connect",
+    short_name: "Connect",
+    description: "Share your details and tell us what interests you.",
     start_url: "/",
     display: "standalone",
     background_color: "#f7f8f2",

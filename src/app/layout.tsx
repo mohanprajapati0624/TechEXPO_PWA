@@ -3,9 +3,9 @@ import "react-international-phone/style.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tech Expo | Registration",
-  description: "Your next connection starts here. Register for Tech Expo.",
-  appleWebApp: { capable: true, title: "Tech Expo", statusBarStyle: "default" },
+  title: "Let's Connect | Share Your Details",
+  description: "Share your details and tell us what interests you.",
+  appleWebApp: { capable: true, title: "Let's Connect", statusBarStyle: "default" },
   icons: { icon: "/app-icon.svg", apple: "/icons/icon-192.png" },
 };
 

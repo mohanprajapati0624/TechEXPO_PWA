@@ -14,7 +14,10 @@ model Registration {
   countryCode String   @map("country_code") @db.VarChar(10)
   phoneNumber String   @map("phone_number") @db.VarChar(20)
   fullPhone   String   @unique(map: "idx_registrations_unique_phone") @map("full_phone") @db.VarChar(25)
-  category    String   @db.VarChar(50)
+  category    String?  @db.VarChar(50)
+  company     String?  @db.VarChar(100)
+  interests   String[] @default([])
+  description String?  @db.VarChar(1000)
   source      String   @default("direct") @db.VarChar(30)
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 

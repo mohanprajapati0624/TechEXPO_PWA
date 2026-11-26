@@ -39,7 +39,7 @@ export function InstallBanner() {
     <aside className="install-banner" aria-label="Install app">
       <div className="install-icon">{ios ? <Share size={18} /> : <ArrowDownToLine size={18} />}</div>
       <div className="install-copy">
-        <strong>Keep Tech Expo close</strong>
+        <strong>Keep this page close</strong>
         <span>{ios ? "Tap Share, then Add to Home Screen." : "Add this app to your home screen."}</span>
       </div>
       {installEvent && <button className="install-action" onClick={async () => {
