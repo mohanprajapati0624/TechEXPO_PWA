@@ -1,8 +1,18 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { INTERESTS, registrationSchema } from "../src/lib/registration.ts";
+import { INTEREST_GROUPS, INTERESTS, registrationSchema } from "../src/lib/registration.ts";
 
 const valid = { name: "  Ada Lovelace  ", email: "  ADA@EXAMPLE.COM ", phone: "+919876543210", company: "  Analytical Engines  ", interests: ["Switchboard"] };
+
+test("groups solutions without changing the selectable values", () => {
+  assert.deepEqual(INTEREST_GROUPS.map(({ label, interests }) => [label, [...interests]]), [
+    ["Data Automation", ["QuantumDataLytica"]],
+    ["AI Agents", ["Conversational AI", "MailPilot", "CampaignX", "MentorX", "IntelliHire", "CourseSmith", "StudyMate", "JobHunter", "ReviewBoost", "Solara"]],
+    ["Hotel Revenue", ["Switchboard"]],
+  ]);
+  assert.deepEqual(INTERESTS.slice(-2), ["Custom Solution", "Others"]);
+  assert.equal(new Set(INTERESTS).size, INTERESTS.length);
+});
 
 test("normalizes a valid registration and defaults its source", () => {
   const result = registrationSchema.parse(valid);

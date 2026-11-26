@@ -11,7 +11,7 @@ Next.js registration PWA with PostgreSQL storage and build-generated QR assets.
 
 The development server allows its machine's current IPv4 addresses so phones on the same network can load development assets. Restart it if the address changes. Only use the development server on a trusted network; it is not intended for public deployment.
 
-The registration form is at the root URL (for example, `https://your-app.vercel.app/`). Add `?source=qr` to the QR URL to record scans. Both the form and API use the interest list in `src/lib/registration.ts`; selecting Others requires a description.
+The registration form is at the root URL (for example, `https://your-app.vercel.app/`). Add `?source=qr` to the QR URL to record scans. Both the form and API use the interest list in `src/lib/registration.ts`; the dropdown groups solutions by Data Automation, AI Agents, and Hotel Revenue. Custom Solution and Others remain separate, and selecting Others requires a description.
 
 ### PostgreSQL configuration
 

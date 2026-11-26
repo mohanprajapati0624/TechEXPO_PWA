@@ -1,10 +1,18 @@
 import { parsePhoneNumberFromString } from "libphonenumber-js/max";
 import { z } from "zod";
 
+export const INTEREST_GROUPS = [
+  { label: "Data Automation", interests: ["QuantumDataLytica"] },
+  { label: "AI Agents", interests: [
+    "Conversational AI", "MailPilot", "CampaignX", "MentorX", "IntelliHire",
+    "CourseSmith", "StudyMate", "JobHunter", "ReviewBoost", "Solara",
+  ] },
+  { label: "Hotel Revenue", interests: ["Switchboard"] },
+] as const;
+
 export const INTERESTS = [
-  "QuantumDataLytica", "Switchboard", "Conversational AI", "MailPilot",
-  "CampaignX", "MentorX", "IntelliHire", "CourseSmith", "StudyMate",
-  "JobHunter", "ReviewBoost", "Solara", "Custom Solution", "Others",
+  ...INTEREST_GROUPS[0].interests, ...INTEREST_GROUPS[1].interests,
+  ...INTEREST_GROUPS[2].interests, "Custom Solution", "Others",
 ] as const;
 
 export const registrationSchema = z.object({

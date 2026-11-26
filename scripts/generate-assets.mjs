@@ -27,8 +27,10 @@ await Promise.all([
   writeFile(join(qrDir, "app-qr.svg"), await QRCode.toString(appUrl, { ...options, type: "svg" })),
   QRCode.toFile(join(qrDir, "app-qr.png"), appUrl, { ...options, width: 1024 }),
 ]);
-const icon = await readFile(join(process.cwd(), "public", "app-icon.svg"));
-await Promise.all([192, 512].map((size) =>
-  sharp(icon).resize(size, size).png().toFile(join(iconDir, `icon-${size}.png`))
-));
+const icon = await readFile(join(process.cwd(), "public", "logos", "Group 7.svg"));
+await Promise.all([192, 512].map(async (size) => {
+  const logo = await sharp(icon).resize({ width: Math.round(size * 0.72) }).png().toBuffer();
+  await sharp({ create: { width: size, height: size, channels: 4, background: "#101820" } })
+    .composite([{ input: logo, gravity: "centre" }]).png().toFile(join(iconDir, `icon-${size}.png`));
+}));
 console.log(`Generated QR assets for ${url.origin} and PWA icons.`);
